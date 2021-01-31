@@ -9,8 +9,6 @@ function newForm(req,res) {
     form.email = body.email;
     form.message = body.message;
     form.phone = body.phone
-    form.done = false;
-    form.option = body.option;
     form.date = moment().format('DD-MM-YYYY')
     form.save((err, formStored)=>{
         if(err) res.send({message: err});
@@ -25,23 +23,6 @@ function getForms(req, res) {
     })
 }
 
-function done(req, res) {
-    let done_state = req.body.done;
-    let params = req.params;
-
-    Form.findById(params.id, (err, form)=>{
-        if(err) res.send({message:err});
-        if (form) {
-            form.done = done_state;
-            console.log(form)
-            Form.findByIdAndUpdate(form._id, form, {new:true}, (err, formUpdated)=>{
-                if (err) res.send({ message: err });
-                if(formUpdated) return res.status(200).send({formUpdated})
-            })
-        }
-    })
-    
-}
 
 function deleteForm(req, res){
 let id = req.params.id;
@@ -60,4 +41,4 @@ function getForm(req,res){
     })
 }
 
-module.exports = {newForm, getForms, done, deleteForm, getForm}
+module.exports = {newForm, getForms, deleteForm, getForm}

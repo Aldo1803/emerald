@@ -13,14 +13,9 @@ var formSchema = new mongoose.Schema({
         index:true,
     },
     message:{
-        type:String,
+        type:Array,
         required:true,
         index:true,
-    },
-    done:{
-        type: Boolean,
-        required: true,
-        index: true
     },
     date: {
         type: String,
@@ -32,11 +27,6 @@ var formSchema = new mongoose.Schema({
         required:false,
         index: true
     },
-    option:{
-        type: String,
-        required: true,
-        index: true
-    }
 });
 
 //Export the model

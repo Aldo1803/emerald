@@ -2,22 +2,32 @@
 let express = require('express');
 let app = express()
 let bodyParser = require('body-parser')
-// Importar las rutas 
-const FormRoutes = require('./routes/form')
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const morgan = require('morgan');
+const _ = require('lodash');
 
-// Parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// Route imports 
+const FormRoutes = require('./routes/form');
+const UserRoutes = require('./routes/user');
+const TestRoutes = require('./routes/test');
+const PostRoutes = require('./routes/post');
+const CommentRoutes = require('./routes/comment');
+// Middlewares
+app.use(fileUpload({
+    createParentPath: true
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cors());
 
-// Parse application/json
-app.use(bodyParser.json())
+// Use routes
+app.use('/form', FormRoutes);
+app.use('/user', UserRoutes);
+app.use('/test', TestRoutes);
+app.use('/post', PostRoutes);
+app.use('/comment', CommentRoutes);
 
-//CORS
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
-app.use('/api', FormRoutes)
+app.use(express.static('uploads'));
 module.exports = app;

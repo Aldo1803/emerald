@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 mongoose.Promise = global.Promise;
 
 // Connect MongoDB at default port 27017.
-mongoose.connect('mongodb+srv://PapaNikolz:Ahtziri0805@cluster0.6wuav.mongodb.net/ContactForms?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://PapaNikolz:Ahtziri0805@cluster0.6wuav.mongodb.net/EmeraldSolutions?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useCreateIndex: true,
 }, (err) => {
