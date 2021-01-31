@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express();
+let app = express();
 const UserController = require('../controllers/user');
 
 app.post('/register', UserController.register);
